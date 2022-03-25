@@ -4,20 +4,27 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        Use this MarkDown Previewer!
       </header>
+      <main>
+        <div class="wrapper">
+        <div class="textbox-header">
+        <i class="far fa-keyboard"></i>
+          <p>Editor</p>
+          <button><i class="far fa-window-maximize"></i></button>
+          </div>  
+        <textarea id="editor">MyDummyText</textarea>
+       </div>
+       <div class="wrapper">
+       <div class="textbox-header">
+       <i class="fab fa-markdown"></i>
+          <p>Previewer</p>
+          <button><i class="far fa-window-maximize"></i></button>
+          </div>  
+        <div id="preview">MyDummyText2</div>
+      </div>
+        </main>  
     </div>
   );
 }
