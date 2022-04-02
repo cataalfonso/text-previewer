@@ -1,11 +1,22 @@
 
 import { marked } from 'marked';
 import React from 'react';
+import Prism from './prism.js'
 
 
 marked.setOptions({
   breaks: true,
+  gfm: true,
+  highlight: function (code) {
+    return Prism.highlight(code, Prism.languages.javascript, 'javascript');
+  }
 });
+
+const r = new marked.Renderer()
+r.link = function (href,title,text) {
+  return `<a target="_blank" href="${href}">${text}</a>`;
+};
+
 
 
 export default class App extends React.Component {
@@ -33,15 +44,14 @@ export default class App extends React.Component {
         <div class="textbox-header">
         <i class="far fa-keyboard"></i>
           <p>Editor</p>
-          <button><i class="far fa-window-maximize"></i></button>
+          <button><i class="fas fa-eraser"></i></button>
           </div>  
-        <textarea id="editor" value={this.state.input} onChange={this.handleChange}>MyDummyText</textarea>
+        <textarea id="editor" value={this.state.input} onChange={this.handleChange}></textarea>
        </div>
        <div class="wrapper">
        <div class="textbox-header">
        <i class="fab fa-markdown"></i>
           <p>Previewer</p>
-          <button><i class="far fa-window-maximize"></i></button>
           </div>  
         <Preview markdown={this.state.input}/>
       </div>
@@ -55,7 +65,7 @@ const Preview = (props) => {
     <div
       id="preview"
       dangerouslySetInnerHTML={{
-        __html: marked(props.markdown)
+        __html: marked(props.markdown, {renderer: r} )
       }}
     />
   );
@@ -107,4 +117,6 @@ And here. | Okay. | I think we get it.
 `;
 
 //TODO 
+// set the table and code formats in previewer
+// fix the box titles
 // handle changes on buttons--> clean
